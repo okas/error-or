@@ -5,6 +5,15 @@ namespace ErrorOr;
 /// </summary>
 public readonly record struct Error
 {
+    private Error(string code, string description, ErrorType type, Dictionary<string, object?>? dictionary)
+    {
+        Code = code;
+        Description = description;
+        Type = type;
+        NumericType = (int)type;
+        Dictionary = dictionary;
+    }
+
     /// <summary>
     /// Gets the unique error code.
     /// </summary>
@@ -23,21 +32,12 @@ public readonly record struct Error
     /// <summary>
     /// Gets the dictionary.
     /// </summary>
-    public Dictionary<string, object>? Dictionary { get; }
+    public Dictionary<string, object?>? Dictionary { get; }
 
     /// <summary>
     /// Gets the numeric value of the type.
     /// </summary>
     public int NumericType { get; }
-
-    private Error(string code, string description, ErrorType type, Dictionary<string, object>? dictionary)
-    {
-        Code = code;
-        Description = description;
-        Type = type;
-        NumericType = (int)type;
-        Dictionary = dictionary;
-    }
 
     /// <summary>
     /// Creates an <see cref="Error"/> of type <see cref="ErrorType.Failure"/> from a code and description.
@@ -48,7 +48,7 @@ public readonly record struct Error
     public static Error Failure(
         string code = "General.Failure",
         string description = "A failure has occurred.",
-        Dictionary<string, object>? dictionary = null) =>
+        Dictionary<string, object?>? dictionary = null) =>
         new(code, description, ErrorType.Failure, dictionary);
 
     /// <summary>
@@ -60,7 +60,7 @@ public readonly record struct Error
     public static Error Unexpected(
         string code = "General.Unexpected",
         string description = "An unexpected error has occurred.",
-        Dictionary<string, object>? dictionary = null) =>
+        Dictionary<string, object?>? dictionary = null) =>
         new(code, description, ErrorType.Unexpected, dictionary);
 
     /// <summary>
@@ -72,7 +72,7 @@ public readonly record struct Error
     public static Error Validation(
         string code = "General.Validation",
         string description = "A validation error has occurred.",
-        Dictionary<string, object>? dictionary = null) =>
+        Dictionary<string, object?>? dictionary = null) =>
         new(code, description, ErrorType.Validation, dictionary);
 
     /// <summary>
@@ -84,7 +84,7 @@ public readonly record struct Error
     public static Error Conflict(
         string code = "General.Conflict",
         string description = "A conflict error has occurred.",
-        Dictionary<string, object>? dictionary = null) =>
+        Dictionary<string, object?>? dictionary = null) =>
         new(code, description, ErrorType.Conflict, dictionary);
 
     /// <summary>
@@ -96,7 +96,7 @@ public readonly record struct Error
     public static Error NotFound(
         string code = "General.NotFound",
         string description = "A 'Not Found' error has occurred.",
-        Dictionary<string, object>? dictionary = null) =>
+        Dictionary<string, object?>? dictionary = null) =>
         new(code, description, ErrorType.NotFound, dictionary);
 
     /// <summary>
@@ -111,6 +111,6 @@ public readonly record struct Error
         int type,
         string code,
         string description,
-        Dictionary<string, object>? dictionary = null) =>
+        Dictionary<string, object?>? dictionary = null) =>
         new(code, description, (ErrorType)type, dictionary);
 }

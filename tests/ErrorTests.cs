@@ -7,7 +7,7 @@ public class ErrorTests
 {
     private const string ErrorCode = "ErrorCode";
     private const string ErrorDescription = "ErrorDescription";
-    private static readonly Dictionary<string, object> Dictionary = new()
+    private static readonly Dictionary<string, object?> Dictionary = new()
     {
         { "key1", "value1" },
         { "key2", 21 },
